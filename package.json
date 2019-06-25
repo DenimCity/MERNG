@@ -1,0 +1,30 @@
+{
+  "name": "postregister",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "server": "nodemon index"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-server": "^2.6.6",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^8.0.0",
+    "esm": "^3.2.25",
+    "graphql": "^14.3.1",
+    "graphql-tag": "^2.10.1",
+    "graphql-tools": "^4.0.5",
+    "husky": "^2.5.0",
+    "jsonwebtoken": "^8.5.1",
+    "log4js": "^4.3.2",
+    "merge-graphql-schemas": "^1.5.8",
+    "mongoose": "^5.6.1",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "lint-staged": "^8.2.1",
+    "nodemon": "^1.19.1"
+  }
+}
