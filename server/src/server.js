@@ -12,9 +12,7 @@ const server = new ApolloServer({
       // schema,
   typeDefs,
   resolvers,
-  context: ({ req, res }) => ({
-    req, res, logger
-  })
+  context: ({ req }) => ({ req })
 });
 
 mongoose
