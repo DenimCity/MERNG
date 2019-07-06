@@ -1,8 +1,12 @@
-import { fileLoader } from 'merge-graphql-schemas';
-import { makeExecutableSchema } from 'apollo-server';
-import path from 'path';
-import resolvers from './resolvers';
-const typeDefs = fileLoader(path.join(__dirname, './**types.graphql'));
-const schema = makeExecutableSchema({ typeDefs, resolvers });
+import postsResolvers from './posts';
+import userResolvers from './users';
 
-export default schema;
+
+export default {
+      Query: {
+            ...postsResolvers.Query
+      },
+      Mutation : {
+            ...userResolvers.Mutation
+      }
+}
