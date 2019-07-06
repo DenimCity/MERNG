@@ -1,26 +1,12 @@
 
 import { ApolloServer } from 'apollo-server';
 import { logger } from './utils';
-import gql from 'graphql-tag';
 import mongoose from 'mongoose';
-import { CLOSING } from 'ws';
+import resolvers from './graphql/resolvers';
+import typeDefs from './graphql/typeDef'
 require('dotenv').config();
 
-const typeDefs = gql`
-      type Query {
-            sayHi: String!
-      }
-`;
 
-const resolvers = {
-      Query: {
-            sayHi: () => 'Hello String'
-      }
-}
-console.log(process.env.MONGO_DB_URL)
-mongoose.connect(process.env.MONGO_DB_URL, {useNewUrlParser: true})
-      .then(() => logger.info('MongoDB Connected....'))
-      .catch('Error Connecting to MongoDb........')
 
 const server = new ApolloServer({
       // schema,
@@ -31,6 +17,13 @@ const server = new ApolloServer({
   })
 });
 
-
-const PORT = process.env.PORT || 4000;
-server.listen({port: PORT }).then(res => logger.info(`🚀...Server running on port ${res.url}`))
+mongoose
+  .connect(process.env.MONGO_DB_URL, { useCreateIndex: true, useNewUrlParser: true })
+  .then(() => {
+    logger.info('MongoDB Connected');
+    return server.listen({ port: 4000 });
+  })
+  .then((res) => {
+    logger.info(`Server running at ${res.url}`);
+  })
+  .catch((err => logger.error('Error Connecting to MongoDb and Starting Server........'+ err.message)))
