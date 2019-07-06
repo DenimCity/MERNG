@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "server": "nodemon index"
+    "dev:server": "nodemon index",
+    "server": "node index"
   },
   "author": "",
   "license": "ISC",
@@ -21,7 +22,8 @@
     "log4js": "^4.3.2",
     "merge-graphql-schemas": "^1.5.8",
     "mongoose": "^5.6.1",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "lint-staged": "^8.2.1",
