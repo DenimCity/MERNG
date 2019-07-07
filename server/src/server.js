@@ -2,8 +2,9 @@
 import { ApolloServer, PubSub } from 'apollo-server';
 import { logger } from './utils';
 import mongoose from 'mongoose';
-import resolvers from './graphql/resolvers';
-import typeDefs from './graphql/typeDef'
+// import resolvers from './graphql/resolvers';
+// import typeDefs from './graphql/typeDef'
+import schema from './graphql'
 require('dotenv').config();
 
 const pubsub = new PubSub()
@@ -11,8 +12,9 @@ const pubsub = new PubSub()
 
 const server = new ApolloServer({
       // schema,
-  typeDefs,
-  resolvers,
+      schema,
+  // typeDefs,
+  // resolvers,
   context: ({ req }) => ({ req, pubsub })
 });
 

@@ -4,15 +4,11 @@ import { UserInputError } from 'apollo-server';
 import {validateRegisterInput, validateLoginInput} from '../../utils/validator';
 import { generateToken } from '../../utils/token';
 
-
-
-export default {
-      Mutation: {
-            async  login(_, {username, password }) {
-                  const {valid, errors} = validateLoginInput(username, password);
+export const LOGIN = async (_, {username, password }) => {
+                const {valid, errors} = validateLoginInput(username, password);
 
                   if (!valid){
-                        throw new UserInputError("Errors", { errors})
+                        throw new UserInputError("Errors", { errors })
                   }
 
                   const user = await User.findOne({username});
@@ -35,9 +31,10 @@ export default {
                         token,
                         createdAt: user.createdAt
                   }
-            },
-            async register(_, { registerInput: { username, email, password, confirmPassword }}, context, info) {
-                  const {valid, errors} = validateRegisterInput(username, email, password, confirmPassword);
+}
+
+export const REGISTER = async (_, { registerInput: { username, email, password, confirmPassword }}, context) => {
+      const {valid, errors} = validateRegisterInput(username, email, password, confirmPassword);
                    if(!valid) {
                          throw new UserInputError('Input Validation Error', {errors})
                    }
@@ -68,6 +65,5 @@ export default {
                         token,
                         createdAt: res.createdAt
                   }
-            }
-      }
+
 }
