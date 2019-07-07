@@ -5,13 +5,17 @@
   "main": "index.js",
   "scripts": {
     "dev:server": "nodemon index",
-    "server": "node index"
+    "server": "node index",
+    "frontend": "concurrently \"cd ./client && yarn start\"",
+    "start": "concurrently \"npm run server\"  \"npm run frontend\"",
+    "dev": "concurrently \"npm run dev:server\"  \"npm run frontend\""
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "apollo-server": "^2.6.6",
     "bcryptjs": "^2.4.3",
+    "concurrently": "^4.1.1",
     "dotenv": "^8.0.0",
     "esm": "^3.2.25",
     "graphql": "^14.3.1",
