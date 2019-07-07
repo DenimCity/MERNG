@@ -1,16 +1,44 @@
-import React, { useState } from 'react'
-import { Menu } from 'semantic-ui-react'
-import { Link } from "react-router-dom";
+import React, { useState, useContext } from '../../node_modules/react'
+import { Menu } from '../../node_modules/semantic-ui-react'
+import { Link } from "../../node_modules/react-router-dom";
 
-function MenuBar (props) {
+import { authContext } from '../context/authContext';
 
-      const pathname = window.location.pathname
-      const path = pathname === '/' ? 'home' : pathname.substr(1)
-      const [activeItem, setActiveItem] = useState(path);
+function MenuBar () {
+  const context = useContext(authContext);
+
+  const pathname = window.location.pathname
+  const path = pathname === '/' ? 'home' : pathname.substr(1)
+  const [activeItem, setActiveItem] = useState(path);
 
   const handleItemClick = (e, { name }) => setActiveItem(name)
 
-    return (
+  const menuBar = context.user ? (
+        <Menu pointing secondary size="massive" color="teal" >
+          <Menu.Item
+            name={context.user.username}
+            active
+            as={Link}
+            to='/'
+          />
+         
+          <Menu.Menu position='right'>
+            <Menu.Item
+              name='logout'
+              onClick={context.logout}
+            />
+
+            <Menu.Item
+              name='register'
+              active={activeItem === 'register'}
+              onClick={handleItemClick}
+              as={Link}
+            to='/register'
+            />
+            
+          </Menu.Menu>
+        </Menu>
+    ) : (
         <Menu pointing secondary size="massive" color="teal" >
           <Menu.Item
             name='home'
@@ -38,6 +66,8 @@ function MenuBar (props) {
           </Menu.Menu>
         </Menu>
     )
+
+    return menuBar
 }
 
 export default MenuBar;
