@@ -8,7 +8,7 @@
     "server": "node index",
     "frontend": "concurrently \"cd ./client && yarn start\"",
     "start": "concurrently \"npm run server\"  \"npm run frontend\"",
-    "dev": "concurrently \"npm run dev:server\"  \"npm run frontend\""
+    "start:local": "concurrently \"npm run dev:server\"  \"npm run frontend\""
   },
   "author": "",
   "license": "ISC",
