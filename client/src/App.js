@@ -9,15 +9,14 @@ import AuthRoute from './utils/AuthRouter';
 
 function App() {
   return (
-  
-     <Router>
+   <Router>
     <Container>
-       <MenuBar/>
-     <Switch>
-        <Route exact path='/' component={ Home }/>
-        <AuthRoute exact path='/login' component={ Login } />
-        <AuthRoute exact path='/register' component={ Register } />
-     </Switch>
+      <MenuBar/>
+         <Switch>
+            <Route exact path='/' component={ Home }/>
+            <AuthRoute exact path='/login' component={ Login } />
+            <AuthRoute exact path='/register' component={ Register } />
+         </Switch>
     </Container>
    </Router>
   );
