@@ -6,23 +6,21 @@ import FormErrors from '../FormErrors';
 
 import { useForm } from '../../utils/hooks'
 
-const Register = (props) => {
+const Register = ({history}) => {
       const [errors, setErrors] =useState({})
 
 
-   const initialState = {
+      const { onChange, onSubmit, values } = useForm(registerUser, {
             username: '',
             email: '',
             password: '',
             confirmPassword:''
-      }
-
-      const { onChange, onSubmit, values } = useForm(registerUser, initialState)
+      })
 
       const [addUser, {loading}] = useMutation(REGISTER_USER, {
             update(_, result){
                   console.log('object', result)
-                  props.history.push('/');
+                  history.push('/');
             },
             onError(err){
                   setErrors(err.graphQLErrors[0].extensions.exception.errors);
@@ -36,8 +34,8 @@ const Register = (props) => {
 
 
       return (
-            <div className='form-container'>
-      <Form onSubmit={onSubmit} noValidate className={ loading ? "loading" :  '' }>
+      <div className='form-container'>
+       <Form onSubmit={onSubmit} noValidate className={ loading ? "loading" :  '' }>
             <h1>Register</h1>
             <Form.Input
             label="Username"
@@ -103,6 +101,7 @@ mutation register(
     id
     token
     email
+    createdAt
   }
 }
 `
