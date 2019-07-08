@@ -37,6 +37,9 @@ export default {
       Mutation: {
             async createPost(_, { body }, context) {
                   const user = authorization(context);
+                   if (body.trim() === '') {
+                        throw new Error('Post body must not be empty');
+                  }
 
                   const newPost = new Post({
                         body,
