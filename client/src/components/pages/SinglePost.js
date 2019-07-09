@@ -57,14 +57,34 @@ function SinglePost(props){
                                                 </Button>
                                                 
                                                 {
-                                                user && user.username === username && (
+                                                      user && user.username === username && (
                                                       <DeleteButton postId={id} callback={deletePostCallBack}/>
-                                                )
+                                                      )
                                                 }
                                                 
                                           </Card.Content>
                                     </Card.Content>
                               </Card>
+                              {
+                                    user && (
+                                          <div>
+                                                FORM GOES HERE
+                                          </div>
+                                    )
+                              }
+                              <hr/>
+                              {
+                                   
+                                    comments && comments.map(c => {
+                                          return (
+                                                <div key={c.id}>
+                                                <div>{c.createdAt}</div>
+                                                <div>{c.body}</div>
+                                                <div>{c.username}</div>
+                                                </div>
+                                          )
+                                    })
+                              }
                              </Grid.Column>
 
                         </Grid.Row>
