@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useMutation } from '@apollo/react-hooks'
 import { Button, Icon, Label } from 'semantic-ui-react';
-import { LIKE_POST } from '../utils/graphql/queries';
+import { LIKE_POST } from '../../utils/graphql/queries';
 
 
 const LikeButton = ({user, post: {id, likes, likeCount}}) => {
