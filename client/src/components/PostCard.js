@@ -4,10 +4,11 @@ import moment from 'moment';
 import { Link } from 'react-router-dom'
 import { authContext } from '../context/authContext';
 import {DeleteButton, LikeButton} from './Buttons/';
+
 const PostCard = ({posts:{ body, createdAt, id, username, likeCount, commentCount, likes}}) => {
 
   const { user } = useContext(authContext)
-
+ 
       return (
       <Card fluid>
       <Card.Content>
