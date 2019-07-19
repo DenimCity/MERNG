@@ -1,7 +1,7 @@
-import React, {useContext} from 'react'
-import { useQuery } from '@apollo/react-hooks';
-import { FETCH_POST_QUERY } from '../../utils/graphql/queries';
-import { Grid, Image, Card, Button, Icon, Label } from 'semantic-ui-react';
+import React, {useContext, useState, useRef} from 'react'
+import { useQuery, useMutation } from '@apollo/react-hooks';
+import { FETCH_POST_QUERY, SUBMIT_COMMENT_MUTATION } from '../../utils/graphql/queries';
+import { Grid, Image, Card, Button, Icon, Label, Form } from 'semantic-ui-react';
 import moment from 'moment';
 import {DeleteButton, LikeButton} from '../Buttons/';
 import { authContext } from '../../context/authContext';
@@ -9,6 +9,8 @@ import { authContext } from '../../context/authContext';
 function SinglePost(props){
 
       const { user } = useContext(authContext)
+      const commentInputRef = useRef(null)
+      const [comment, setComment ] = useState('')
       const postId = props.match.params.postId;
       let postMarkUp;
       const { data: { getPost } } = useQuery(FETCH_POST_QUERY, {
@@ -16,6 +18,16 @@ function SinglePost(props){
                   postId
             }
       });
+      const [submitComment] = useMutation(SUBMIT_COMMENT_MUTATION, {
+            update(){
+                  setComment('')
+                  commentInputRef.current.blur()
+            },
+            variables: {
+                  postId,
+                  body: comment
+            }
+      })
 
       function deletePostCallBack(){
             props.history.push('/')
@@ -67,21 +79,45 @@ function SinglePost(props){
                               </Card>
                               {
                                     user && (
-                                          <div>
-                                                FORM GOES HERE
-                                          </div>
+                                          <Card fluid >
+                                             <Card.Content>
+                                                      <p>Post A Comment</p>
+                                                <Form>
+                                                      <div className="ui action input fluid">
+                                                            <input 
+                                                            type="text"
+                                                            placeholder='Comment'
+                                                            value={comment}
+                                                            onChange={event => setComment(event.target.value)}
+                                                            ref={commentInputRef}
+                                                            />
+                                                            <button type="submit" 
+                                                                  className="ui button teal"
+                                                                  disabled={comment.trim() === ''}
+                                                                  onClick={submitComment}>Submit</button>
+                                                      </div>
+                                                </Form>
+                                             </Card.Content>
+                                          </Card>
+
                                     )
                               }
                               <hr/>
                               {
                                    
-                                    comments && comments.map(c => {
+                                    comments && comments.map(comment => {
                                           return (
-                                                <div key={c.id}>
-                                                <div>{c.createdAt}</div>
-                                                <div>{c.body}</div>
-                                                <div>{c.username}</div>
-                                                </div>
+
+                                                <Card fluid key={comment.id}>
+                                                      <Card.Content>
+                                                            {user && user.username === comment.username  && (
+                                                                  <DeleteButton postId={id} commentId={comment.id}></DeleteButton>
+                                                            )}
+                                                            <Card.Header>{comment.username}</Card.Header>
+                                                            <Card.Meta>{moment(comment.createdAt).fromNow()}</Card.Meta>
+                                                            <Card.Description>{comment.body}</Card.Description>
+                                                      </Card.Content>
+                                                </Card>
                                           )
                                     })
                               }
@@ -95,4 +131,4 @@ function SinglePost(props){
 }
 
 
-export default SinglePost
+export default SinglePost;

@@ -44,7 +44,7 @@ query($postId: ID!){
       }
 }
 `
-
+/////////////////////////////// BELOW ARE MUTATION QUERYS /////////////////////////////////////////////////
 export const CREATE_POST = gql`
 mutation createPost($body: String!) {
       createPost(body: $body)   {
@@ -88,3 +88,34 @@ export const LIKE_POST = gql`
 
 `
 
+
+export const SUBMIT_COMMENT_MUTATION = gql`
+      mutation createComment($postId: String!, $body: String!){
+            createComment(postId: $postId, body: $body){
+                  id
+                  comments {
+                        id
+                        body
+                        createdAt
+                        username
+                  }
+                  commentCount
+            }
+      }
+
+`
+
+export const DELETE_COMMENT_MUTATION = gql`
+      mutation deleteComment($postId: ID!, $commentId: ID!){
+            deleteComment(postId: $postId, commentId: $commentId){
+                  id
+                  comments {
+                        id 
+                        username 
+                        createdAt 
+                        body
+                  }
+                  commentCount
+            }
+      }
+`
