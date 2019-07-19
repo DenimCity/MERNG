@@ -1,11 +1,10 @@
 import jwt from 'jsonwebtoken';
-import { AuthenticationError } from 'apollo-server'
+import { AuthenticationError } from 'apollo-server';
 
 
 export const authorization = (context) => {
   const authHeader = context.req.headers.authorization;
   if (authHeader) {
-    
     const token = authHeader.split('Bearer ')[1];
     if (token) {
       try {
@@ -18,4 +17,4 @@ export const authorization = (context) => {
     throw new Error("Authentication token must be 'Bearer [token]");
   }
   throw new Error('Authorization header must be provided');
-}
+};

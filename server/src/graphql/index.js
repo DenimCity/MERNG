@@ -1,9 +1,7 @@
 import { mergeSchemas } from 'graphql-tools';
 
 const schema = mergeSchemas({
-  schemas: []
-
+  schemas: [],
 });
-
 
 export default schema;
