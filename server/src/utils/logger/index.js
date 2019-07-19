@@ -1,4 +1,4 @@
-import { configure, getLogger } from 'log4js'
+import { configure, getLogger } from 'log4js';
 
 configure({
   appenders: {

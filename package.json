@@ -8,7 +8,9 @@
     "server": "node index",
     "frontend": "concurrently \"cd ./client && yarn start\"",
     "start": "concurrently \"npm run server\" \"npm run frontend\"",
-    "start:local": "concurrently \"npm run dev:server\"  \"npm run frontend\""
+    "start:local": "concurrently \"npm run dev:server\"  \"npm run frontend\"",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "author": "",
   "license": "ISC",
@@ -17,6 +19,7 @@
     "bcryptjs": "^2.4.3",
     "concurrently": "^4.1.1",
     "dotenv": "^8.0.0",
+    "eslint-config-prettier": "^6.0.0",
     "esm": "^3.2.25",
     "graphql": "^14.3.1",
     "graphql-tag": "^2.10.1",
@@ -27,10 +30,21 @@
     "merge-graphql-schemas": "^1.5.8",
     "mongoose": "^5.6.1",
     "path": "^0.12.7",
+    "react": "^16.8.6",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
+    "babel-eslint": "^10.0.2",
+    "eslint": "^5.3.0",
+    "eslint-config-airbnb": "^17.1.1",
+    "eslint-plugin-html": "^6.0.0",
+    "eslint-plugin-import": "^2.18.0",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-react": "^7.14.2",
+    "eslint-plugin-react-hooks": "^1.6.1",
     "lint-staged": "^8.2.1",
-    "nodemon": "^1.19.1"
+    "nodemon": "^1.19.1",
+    "prettier": "^1.18.2"
   }
 }

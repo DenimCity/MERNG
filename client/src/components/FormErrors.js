@@ -1,17 +1,19 @@
-import React from 'react'
+import React from 'react';
 
-const FormErrors = ({errors}) => {
-      return (
-      <div className='ui error message'>
-            <ul className="list">
-            {
-            Object.values(errors).map(value =>(
-                  <li key={value}> {value} </li>
+const FormErrors = ({ errors }) => (
+  <div className="ui error message">
+    <ul className="list">
+      {
+            Object.values(errors).map(value => (
+              <li key={value}>
+                {' '}
+                {value}
+                {' '}
+              </li>
             ))
             }
-            </ul>
-      </div>
-      )
-}
+    </ul>
+  </div>
+);
 
-export default FormErrors
+export default FormErrors;

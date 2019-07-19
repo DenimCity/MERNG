@@ -1,4 +1,4 @@
-import gql from "graphql-tag";
+import gql from 'graphql-tag';
 
 export const FETCH_POSTS_QUERY = gql` 
 {
@@ -20,7 +20,7 @@ export const FETCH_POSTS_QUERY = gql`
     commentCount
   }
 }
-`
+`;
 
 export const FETCH_POST_QUERY = gql`
 query($postId: ID!){
@@ -43,8 +43,8 @@ query($postId: ID!){
 
       }
 }
-`
-/////////////////////////////// BELOW ARE MUTATION QUERYS /////////////////////////////////////////////////
+`;
+// ///////////////////////////// BELOW ARE MUTATION QUERYS /////////////////////////////////////////////////
 export const CREATE_POST = gql`
 mutation createPost($body: String!) {
       createPost(body: $body)   {
@@ -64,7 +64,7 @@ mutation createPost($body: String!) {
             }
       }
 }
-`
+`;
 
 
 export const DELETE_POST_MUTATION = gql`
@@ -72,7 +72,7 @@ export const DELETE_POST_MUTATION = gql`
     deletePost(postId: $postId)
   }
 
-`
+`;
 
 export const LIKE_POST = gql`
       mutation likePost($postId: ID!){
@@ -86,7 +86,7 @@ export const LIKE_POST = gql`
             }
       }
 
-`
+`;
 
 
 export const SUBMIT_COMMENT_MUTATION = gql`
@@ -103,7 +103,7 @@ export const SUBMIT_COMMENT_MUTATION = gql`
             }
       }
 
-`
+`;
 
 export const DELETE_COMMENT_MUTATION = gql`
       mutation deleteComment($postId: ID!, $commentId: ID!){
@@ -118,4 +118,39 @@ export const DELETE_COMMENT_MUTATION = gql`
                   commentCount
             }
       }
-`
+`;
+
+
+export const REGISTER_USER = gql`
+mutation register(
+  $username: String!
+  $email: String!
+  $password: String!
+  $confirmPassword: String!
+){
+  register(registerInput: {
+    email: $email
+    password:  $password
+    confirmPassword: $confirmPassword
+    username: $username
+  }){
+    username
+    id
+    token
+    email
+    createdAt
+  }
+}
+`;
+
+export const LOGIN_USER = gql`
+mutation login($username: String! $password: String!){
+  login(password:  $password username: $username){
+    username
+    id
+    token
+    email
+    createdAt
+  }
+}
+`;
