@@ -1,13 +1,27 @@
+/* eslint-disable camelcase */
 
-import { ApolloServer, PubSub } from 'apollo-server';
+import 'dotenv/config';
+import { ApolloServer } from 'apollo-server';
 import mongoose from 'mongoose';
+import { RedisPubSub } from 'graphql-redis-subscriptions';
+import * as Redis from 'ioredis';
+
 import { logger } from './utils';
 import resolvers from './graphql/resolvers';
 import typeDefs from './graphql/typeDef';
 
-require('dotenv').config();
+const options = {
+  host: '127.0.0.1',
+  port: 6379,
+  retry_strategy: options => Math.max(options.attempt * 100, 3000)
 
-const pubsub = new PubSub();
+};
+
+const pubsub = new RedisPubSub({
+
+  publisher: new Redis(options),
+  subscriber: new Redis(options)
+});
 
 
 const server = new ApolloServer({
